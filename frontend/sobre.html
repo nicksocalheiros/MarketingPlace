@@ -38,6 +38,7 @@
                             <th scope="col">Nome</th>
                             <th scope="col">ID Comprador</th>
 							<th scope="col">Preço</th>
+							<th scope="col">ID Fazendeiro</th>
                             <th scope="col">Ações</th>
                           </tr>
                         </thead>
@@ -156,7 +157,7 @@
 		   });
 
 			
-		   const endereco = '0x419993e18a3E28b85723257c142Fe658962c305F';
+		   const endereco = '0x0D01D0032419359e91743CD2028d3c6DFdB93E10';
 
  			const abi = [
 	{
@@ -526,14 +527,15 @@
 			.then((result) => {
 				result.forEach((element, index) => {
 					rbc.methods.getProduct(element.productId).call().then((element2) => {
-						//console.log(element2);
-						//console.log(element);
+						console.log(element2.dono);
+						console.log(web3.eth.defaultAccount);
 						if (element.delivered === false) {
 							if (element2.dono === web3.eth.defaultAccount && element2.fazendeiro == element2.dono) {
 								$('#Tabela1').append(`<tr><th>${element.productId}</th>
 										<td>${element2.nome}</td>
 										<td>${element.buyer}</td>
 										<td>${element2.preco}</td>
+										<td>${element2.fazendeiro}</td>
 										<td><button type="submit" id="button1"  value="${parseInt(element.productId)}" onclick="buy(this.value)" class="btn btn-primary" style="width:auto">Entregar</button></td>
 										</tr> `);
 

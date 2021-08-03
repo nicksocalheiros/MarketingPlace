@@ -42,10 +42,11 @@
                             <th scope="col">L.Método</th>
                             <th scope="col">Data Plantação</th>
                             <th scope="col">Data Colheita</th>
+							<th scope="col">ID do Fazendeiro</th>
                             <th scope="col">Ações</th>
                           </tr>
                         </thead>
-                        <tbody id="Registrar">
+                        <tbody id="aqui">
                         </tbody>
                       </table>
 						
@@ -93,7 +94,7 @@
 		   });
 
 			
-		   const endereco = '0x419993e18a3E28b85723257c142Fe658962c305F';
+		   const endereco = '0x0D01D0032419359e91743CD2028d3c6DFdB93E10';
 
  			const abi = [
 	{
@@ -466,8 +467,8 @@
             	result.forEach((element, index) => {
 				console.log(element.dono);
 				console.log(element);
-					if (element.status == '0' && (element.dono == element.fazendeiro)) {
-                    $('#Registrar').append(`<tr><th>${index + 1}</th>
+					if ((element.status == '0') && (element.dono == element.fazendeiro ) && (element.fazendeiro != web3.eth.defaultAccount )) {
+                    $('#aqui').append(`<tr><th>${index + 1}</th>
 									<td>${element.nome}</td>
 									<td>${element.tipo}</td>
 									<td>${element.preco}</td>
@@ -475,6 +476,7 @@
 									<td>${element.plantacaoMet}</td>
 									<td>${element.plantacaoData}</td>
 									<td>${element.colheitaData}</td>
+									<td>${element.fazendeiro}</td>
 									<td><button type="submit" id="button1"  value="${[parseInt(index)+'|'+parseInt(element.preco,10)]}" onclick="comprar(this.value)" class="btn btn-primary" style="width:auto">Comprar</button></td>
 									</tr> `);
 
